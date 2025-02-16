@@ -5,7 +5,7 @@
   <title>Wave Financial Management</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* --- Original Desktop Styles --- */
+    /* ---------- Desktop Styles ---------- */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -18,6 +18,7 @@
       padding: 20px;
       text-align: center;
     }
+    /* Header image (desktop max-width: 300px) */
     header img {
       max-width: 300px;
       height: auto;
@@ -48,6 +49,7 @@
     .rectangle:hover {
       background-color: #d4d4d4;
     }
+    /* Rectangle image (desktop width: 20px) */
     .rectangle img {
       width: 20px;
       height: auto;
@@ -61,7 +63,7 @@
       margin: 5px 0;
       font-size: 0.9em;
     }
-    /* --- Top Bar (Desktop) --- */
+    /* Top Bar (Desktop) */
     .top-bar {
       background-color: #003366;
       width: 100%;
@@ -86,7 +88,6 @@
     .top-bar a:hover {
       background-color: #0059b3;
     }
-    /* --- Search Bar in Top Bar (Desktop) --- */
     .top-bar input[type="text"] {
       padding: 5px;
       font-size: 16px;
@@ -108,49 +109,78 @@
     .top-bar button:hover {
       background-color: #0073e6;
     }
-    /* Prevent content from hiding under the fixed top bar */
+    /* Ensure content is not hidden under the fixed top bar */
     .content {
       padding-top: 80px;
     }
-
-    /* --- Media Query for Phones (max-width:480px) ---
-         Scale key elements by roughly 1.8× compared to desktop sizes */
+    
+    /* We'll add a class for the heading text that we want scaled 3× smaller */
+    .heading-text {
+      /* Desktop: leave default (or set your desired size) */
+    }
+    
+    /* Also add a class to images (other than the header image) that we want scaled 3× smaller */
+    .phone-scale-3 {
+      /* Desktop: no override */
+    }
+    
+    /* ---------- Media Query for Small Screens (max-width:480px) ----------
+       Apply different scale factors for different groups:
+         - Top Bar & its elements: 5× smaller (i.e. sizes divided by 5)
+         - Main images and heading text: 3× smaller (divided by 3)
+         - Rectangles and their contents: 4× smaller (divided by 4)
+    */
     @media (max-width: 480px) {
-      header img {
-        max-width: 540px; /* 300px * 1.8 */
-      }
-      .rectangle {
-        width: 450px;      /* 250px * 1.8 */
-        height: 135px;     /* 75px * 1.8 */
-        margin: 18px;      /* 10px * 1.8 */
-        padding: 18px;     /* 10px * 1.8 */
-      }
-      .rectangle h2 {
-        font-size: 1.8em;  /* 1em * 1.8 */
-      }
-      .rectangle p {
-        font-size: 1.62em; /* 0.9em * 1.8 */
-      }
+      /* --- Top Bar (5× smaller) --- */
       .top-bar {
-        padding: 18px;     /* 10px * 1.8 */
+        padding: 2px; /* 10px ÷ 5 = 2px */
       }
       .top-bar a {
-        font-size: 45px;   /* 25px * 1.8 */
-        padding: 2px;      /* 1px * 1.8 (approx.) */
-        margin: 5px;       /* 3px * 1.8 (approx.) */
+        font-size: 5px;   /* 25px ÷ 5 = 5px */
+        padding: 1px;     /* (Originally 1px; could use 1px as a minimum) */
+        margin: 1px;      /* 3px ÷ 5 ≈ 0.6px, rounded to 1px */
       }
       .top-bar input[type="text"] {
-        font-size: 28.8px;   /* 16px * 1.8 */
-        padding: 9px;        /* 5px * 1.8 */
-        margin-left: 18px;   /* 10px * 1.8 */
+        font-size: 3px;   /* 16px ÷ 5 ≈ 3.2px, rounded to 3px */
+        padding: 1px;     /* 5px ÷ 5 = 1px */
+        margin-left: 2px; /* 10px ÷ 5 = 2px */
       }
       .top-bar button {
-        font-size: 28.8px;         /* 16px * 1.8 */
-        padding: 9px 18px;         /* 5px and 10px * 1.8 */
-        margin-left: 9px;          /* 5px * 1.8 */
+        font-size: 3px;         /* 16px ÷ 5 ≈ 3px */
+        padding: 1px 2px;       /* (5px ÷ 5 = 1px, 10px ÷ 5 = 2px) */
+        margin-left: 1px;       /* 5px ÷ 5 = 1px */
       }
-      .content {
-        padding-top: 144px; /* 80px * 1.8 */
+      
+      /* --- Main Images & Heading Text (3× smaller) --- */
+      /* Header image: */
+      header img {
+        max-width: 100px;  /* 300px ÷ 3 = 100px */
+      }
+      /* For the two secondary images, add class "phone-scale-3" in the HTML */
+      .phone-scale-3 {
+        max-width: 100px;  /* Assuming their desktop width is ~300px */
+        height: auto;
+      }
+      /* Heading text (assumed to be wrapped in an element with class "heading-text") */
+      .heading-text {
+        font-size: 8px;  /* For example, if desktop text was ~24px, 24 ÷ 3 = 8px */
+      }
+      
+      /* --- Rectangles & Their Elements (4× smaller) --- */
+      .rectangle {
+        width: 63px;        /* 250px ÷ 4 ≈ 62.5px, rounded to 63px */
+        height: 19px;       /* 75px ÷ 4 ≈ 18.75px, rounded to 19px */
+        margin: 3px;        /* 10px ÷ 4 ≈ 2.5px, rounded to 3px */
+        padding: 3px;       /* 10px ÷ 4 ≈ 2.5px, rounded to 3px */
+      }
+      .rectangle img {
+        width: 5px;         /* 20px ÷ 4 = 5px */
+      }
+      .rectangle h2 {
+        font-size: 4px;     /* Assuming original ~16px ÷ 4 = 4px */
+      }
+      .rectangle p {
+        font-size: 4px;     /* Assuming original ~14.4px ÷ 4 ≈ 3.6px, rounded to 4px */
       }
     }
   </style>
@@ -166,14 +196,18 @@
 
   <div class="content">
     <header>
+      <!-- Header image -->
       <img src="BCDA5ADD-DC81-45DB-AA3D-19E8EBD86044_1_201_a.jpeg" alt="Wave Financial Management">
     </header>
     <center>
-      <img src="https://media0.giphy.com/media/JtBZm3Getg3dqxK0zP/giphy.gif?cid=6c09b952ojtb3cqj0m7q0xx9gpi4m2o744rxyynqbq9qkq1c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="Animated GIF" height="200" width="300">
-      <h2><small>Take a look at our biggest stocks on the market</small></h2>
+      <!-- Secondary image 1 with class for 3× smaller scaling -->
+      <img class="phone-scale-3" src="https://media0.giphy.com/media/JtBZm3Getg3dqxK0zP/giphy.gif?cid=6c09b952ojtb3cqj0m7q0xx9gpi4m2o744rxyynqbq9qkq1c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="Animated GIF" height="200" width="300">
+      <!-- Heading text wrapped with a class to scale 3× smaller -->
+      <h2 class="heading-text"><small>Take a look at our biggest stocks on the market</small></h2>
     </center>
     <center>
-      <img src="https://preview.redd.it/fl6ax0n1o7961.jpg?auto=webp&s=0b1e463b674b13d8f4ea2876f29f51f883b9fc61" alt="Preview Image" height="40">
+      <!-- Secondary image 2 with class for 3× smaller scaling -->
+      <img class="phone-scale-3" src="https://preview.redd.it/fl6ax0n1o7961.jpg?auto=webp&s=0b1e463b674b13d8f4ea2876f29f51f883b9fc61" alt="Preview Image" height="40">
     </center>
     <center>
       <!-- Clickable Stock Rectangles -->
@@ -209,7 +243,7 @@
           <p>AMZN</p>
         </a>
       </div>
-      <!-- SoundHound -->
+      <!-- SoundHound Rectangle -->
       <a class="rectangle" href="liveSoundHound.html">
         <img src="https://www.shareicon.net/data/512x512/2016/06/22/612382_soundhound_512x512.png" alt="SoundHound Logo">
         <h2>SoundHound</h2>
@@ -240,7 +274,6 @@
       var input = document.getElementById("searchInput").value.toLowerCase().trim();
       var foundPage = "";
       
-      // Check if any of the keys appear in the input
       for (var key in companyPages) {
         if (input.indexOf(key) !== -1) {
           foundPage = companyPages[key];
@@ -255,7 +288,6 @@
       }
     }
     
-    // Trigger search on Enter key press
     document.getElementById("searchInput").addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
