@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Wave Financial Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* --- Original Desktop Styles --- */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -14,6 +16,7 @@
     header {
       background-color: #fff;
       padding: 20px;
+      text-align: center;
     }
     header img {
       max-width: 300px;
@@ -36,7 +39,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: left;
+      align-items: flex-start;
       cursor: pointer;
       transition: background-color 0.3s;
       text-decoration: none;
@@ -52,36 +55,38 @@
     }
     .rectangle h2 {
       margin: 5px 0;
+      font-size: 1em;
     }
     .rectangle p {
       margin: 5px 0;
+      font-size: 0.9em;
     }
+    /* --- Top Bar (Desktop) --- */
     .top-bar {
-            background-color: #003366;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 1.5px;
-            justify-content: center;
-            display: flex;
-            text-align: center;
-            z-index: 1000;
-        }
-        .top-bar a {
-            color: white;
-            text-decoration: none;
-            font-size: 25px;
-            padding: 1px;
-            margin: 3px;
-            border: 2px solid white;
-            transition: background 0.3s;
-          }
-        .top-bar a:hover {
-            background-color: #0059b3;
-        }
-    
-          Search bar styles within the top bar */
+      background-color: #003366;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 25px;
+      padding: 1px;
+      margin: 3px;
+      border: 2px solid white;
+      transition: background 0.3s;
+    }
+    .top-bar a:hover {
+      background-color: #0059b3;
+    }
+    /* --- Search Bar in Top Bar (Desktop) --- */
     .top-bar input[type="text"] {
       padding: 5px;
       font-size: 16px;
@@ -103,85 +108,107 @@
     .top-bar button:hover {
       background-color: #0073e6;
     }
-    /* Add top padding to the content so it doesn't hide under the fixed top bar */
+    /* Prevent content from hiding under the fixed top bar */
     .content {
       padding-top: 80px;
+    }
+
+    /* --- Media Query for Smaller Screens (up to 768px) --- 
+         Increase key element sizes by about 50% compared to desktop */
+    @media (max-width: 768px) {
+      header img {
+        max-width: 450px; /* 300px * 1.5 */
+      }
+      .rectangle {
+        width: 375px;      /* 250px * 1.5 */
+        height: 112.5px;   /* 75px * 1.5 */
+        margin: 15px;      /* a bit more spacing */
+        padding: 15px;
+      }
+      .rectangle h2 {
+        font-size: 1.5em;
+      }
+      .rectangle p {
+        font-size: 1.35em;
+      }
+      .top-bar a {
+        font-size: 37.5px;  /* 25px * 1.5 */
+        padding: 1.5px;
+        margin: 4.5px;
+      }
+      .top-bar input[type="text"] {
+        font-size: 24px;    /* 16px * 1.5 */
+      }
+      .top-bar button {
+        font-size: 24px;    /* 16px * 1.5 */
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Top Bar with Navigation & Search -->
   <div class="top-bar">
     <a href="index.html">Home</a>
     <a href="stock.html">Stocks</a>
     <input type="text" id="searchInput" placeholder="Search stock...">
     <button onclick="searchStock()">Search</button>
   </div>
-  
+
   <div class="content">
-  
-  <center>
-  <!-- Wave Financial Management Logo at the Top -->
-  <header>
-    <img src="BCDA5ADD-DC81-45DB-AA3D-19E8EBD86044_1_201_a.jpeg" alt="Wave Financial Management" height="200" width="9000">
-  </header>
-
-  <img src="https://media0.giphy.com/media/JtBZm3Getg3dqxK0zP/giphy.gif?cid=6c09b952ojtb3cqj0m7q0xx9gpi4m2o744rxyynqbq9qkq1c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" height="200" width="300">
-  
-  <h2><small>Take a look at our biggest stocks on the market </small> </h2>
-</center>
-  <img src="https://preview.redd.it/fl6ax0n1o7961.jpg?auto=webp&s=0b1e463b674b13d8f4ea2876f29f51f883b9fc61" height="40">
-
-  
-
-  <center>
-  <!-- Clickable Rectangles -->
-  <div class="container">
-    <!-- Nvidia -->
-    <a class="rectangle" href="liveNvidia.html">
-      <img src="https://companieslogo.com/img/orig/NVDA-220e1e03.png?t=1722952498" alt="Nvidia Logo" height="240">
-      <h2>Nvidia</h2>
-      <p>NVDA</p>
-    </a>
-
-    <!-- Microsoft -->
-    <a class="rectangle" href="liveMicrosoft.html">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8u8BZcgcIxcfgSJsas_HDf2pfYTBlmo2q3g&s" alt="Microsoft Logo">
-      <h2>Microsoft</h2>
-      <p>MSFT</p>
-    </a>
-
-    <!-- Apple -->
-    <a class="rectangle" href="liveApple.html">
-      <img src="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png" alt="Apple Logo">
-      <h2>Apple</h2>
-      <p>AAPL</p>
-    </a>
-
-    <!-- Tesla -->
-    <a class="rectangle" href="liveTesla.html">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/1024px-Tesla_logo.png" alt="Tesla Logo">
-      <h2>Tesla</h2>
-      <p>TSLA</p>
-    </a>
-
-    <!-- Amazon -->
-    <a class="rectangle" href="liveAmazon.html">
-      <img src="https://companieslogo.com/img/orig/AMZN-e9f942e4.png?t=1722944001" alt="Amazon Logo" height="200" width="300" >
-      <h2>Amazon</h2>
-      <p>AMZN</p>
-    </a>
+    <header>
+      <img src="BCDA5ADD-DC81-45DB-AA3D-19E8EBD86044_1_201_a.jpeg" alt="Wave Financial Management">
+    </header>
+    <center>
+      <img src="https://media0.giphy.com/media/JtBZm3Getg3dqxK0zP/giphy.gif?cid=6c09b952ojtb3cqj0m7q0xx9gpi4m2o744rxyynqbq9qkq1c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="Animated GIF" height="200" width="300">
+      <h2><small>Take a look at our biggest stocks on the market</small></h2>
+    </center>
+    <center>
+      <img src="https://preview.redd.it/fl6ax0n1o7961.jpg?auto=webp&s=0b1e463b674b13d8f4ea2876f29f51f883b9fc61" alt="Preview Image" height="40">
+    </center>
+    <center>
+      <!-- Clickable Stock Rectangles -->
+      <div class="container">
+        <!-- Nvidia -->
+        <a class="rectangle" href="liveNvidia.html">
+          <img src="https://companieslogo.com/img/orig/NVDA-220e1e03.png?t=1722952498" alt="Nvidia Logo">
+          <h2>Nvidia</h2>
+          <p>NVDA</p>
+        </a>
+        <!-- Microsoft -->
+        <a class="rectangle" href="liveMicrosoft.html">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8u8BZcgcIxcfgSJsas_HDf2pfYTBlmo2q3g&s" alt="Microsoft Logo">
+          <h2>Microsoft</h2>
+          <p>MSFT</p>
+        </a>
+        <!-- Apple -->
+        <a class="rectangle" href="liveApple.html">
+          <img src="https://cdn.freebiesupply.com/images/large/2x/apple-logo-transparent.png" alt="Apple Logo">
+          <h2>Apple</h2>
+          <p>AAPL</p>
+        </a>
+        <!-- Tesla -->
+        <a class="rectangle" href="liveTesla.html">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/1024px-Tesla_logo.png" alt="Tesla Logo">
+          <h2>Tesla</h2>
+          <p>TSLA</p>
+        </a>
+        <!-- Amazon -->
+        <a class="rectangle" href="liveAmazon.html">
+          <img src="https://companieslogo.com/img/orig/AMZN-e9f942e4.png?t=1722944001" alt="Amazon Logo">
+          <h2>Amazon</h2>
+          <p>AMZN</p>
+        </a>
+      </div>
+      <!-- SoundHound -->
+      <a class="rectangle" href="liveSoundHound.html">
+        <img src="https://www.shareicon.net/data/512x512/2016/06/22/612382_soundhound_512x512.png" alt="SoundHound Logo">
+        <h2>SoundHound</h2>
+        <p>SOUN</p>
+      </a>
+    </center>
   </div>
-  
-  <!-- SoundHound -->
-  <a class="rectangle" href="liveSoundHound.html">
-    <img src="https://www.shareicon.net/data/512x512/2016/06/22/612382_soundhound_512x512.png" alt="SoundHound Logo" height="1000" width="600" >
-    <h2>SoundHound</h2>
-    <p>SOUN</p>
-  </a>
-</div>
-</center>
 
-<script>
+  <script>
     // Mapping for company names and tickers to their respective pages
     var companyPages = {
       "nvidia": "liveNvidia.html",
@@ -218,7 +245,7 @@
       }
     }
     
-    // Allow search on Enter key press in the search input field.
+    // Trigger search on Enter key press
     document.getElementById("searchInput").addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -226,6 +253,5 @@
       }
     });
   </script>
-
 </body>
 </html>
