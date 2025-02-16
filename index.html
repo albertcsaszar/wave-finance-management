@@ -80,7 +80,64 @@
         .top-bar a:hover {
             background-color: #0059b3;
           }
-       
+
+      .content {
+      padding-top: 80px;
+    }
+  
+          @media (max-width: 480px) {
+      /* --- Top Bar (5× smaller) --- */
+      .top-bar {
+        padding: 6px; /* 10px ÷ 5 = 2px */
+      }
+      .top-bar a {
+        font-size: 15px;   /* 25px ÷ 5 = 5px */
+        padding: 3px;     /* (Originally 1px; could use 1px as a minimum) */
+        margin: 3px;      /* 3px ÷ 5 ≈ 0.6px, rounded to 1px */
+      }
+      .top-bar input[type="text"] {
+        font-size: 9px;   /* 16px ÷ 5 ≈ 3.2px, rounded to 3px */
+        padding: 3px;     /* 5px ÷ 5 = 1px */
+        margin-left: 6px; /* 10px ÷ 5 = 2px */
+      }
+      .top-bar button {
+        font-size: 9px;         /* 16px ÷ 5 ≈ 3px */
+        padding: 3px 6px;       /* (5px ÷ 5 = 1px, 10px ÷ 5 = 2px) */
+        margin-left: 3px;       /* 5px ÷ 5 = 1px */
+      }
+      
+      /* --- Main Images & Heading Text (3× smaller) --- */
+      /* Header image: */
+      header img {
+        max-width: 150px;  /* 300px ÷ 3 = 100px */
+      }
+      /* For the two secondary images, add class "phone-scale-3" in the HTML */
+      .phone-scale-3 {
+        max-width: 150px;  /* Assuming their desktop width is ~300px */
+        height: auto;
+      }
+      /* Heading text (assumed to be wrapped in an element with class "heading-text") */
+      .heading-text {
+        font-size: 15px;  /* For example, if desktop text was ~24px, 24 ÷ 3 = 8px */
+      }
+      
+      /* --- Rectangles & Their Elements (4× smaller) --- */
+      .rectangle {
+        width: 125px;        /* 250px ÷ 4 ≈ 62.5px, rounded to 63px */
+        height: 53px;       /* 75px ÷ 4 ≈ 18.75px, rounded to 19px */
+        margin: 7px;        /* 10px ÷ 4 ≈ 2.5px, rounded to 3px */
+        padding: 7px;       /* 10px ÷ 4 ≈ 2.5px, rounded to 3px */
+      }
+      .rectangle img {
+        width: 10px;         /* 20px ÷ 4 = 5px */
+      }
+      .rectangle h2 {
+        font-size: 8px;     /* Assuming original ~16px ÷ 4 = 4px */
+      }
+      .rectangle p {
+        font-size: 7px;     /* Assuming original ~14.4px ÷ 4 ≈ 3.6px, rounded to 4px */
+      }
+    }
     
   </style>
 </head>
