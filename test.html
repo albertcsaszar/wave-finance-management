@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wave Financial Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #333;
+    }
+    .description {
+      margin-bottom: 30px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .description ul {
+      list-style: disc inside;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    form {
+      text-align: center;
+    }
+    input[type="email"] {
+      width: 70%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+  <!-- Include SMTP.js -->
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+        <img src="BCDA5ADD-DC81-45DB-AA3D-19E8EBD86044_1_105_c.jpeg" alt="Wave Financial Management Logo" height="70" width="290">
+        <h1>Wave Financial Managemet</h1>
+    </header>
+    <section class="description">
+      <p>At Wave Financial Management, we specialize in transforming your financial future by investing your money with precision and care. Our expert team uses in-depth market research and diversified portfolio strategies to help you achieve:</p>
+      <ul>
+        <li><strong>Personalized Investment Strategies:</strong> Tailored plans that suit your unique financial goals.</li>
+        <li><strong>Risk Management:</strong> Proactive measures to protect and grow your investments.</li>
+        <li><strong>Diversification:</strong> Spreading your investments across various asset classes to minimize risk.</li>
+        <li><strong>Transparent Reporting:</strong> Regular updates and clear communication to keep you informed.</li>
+        <li><strong>Long-Term Wealth Growth:</strong> Sustainable strategies to secure your financial future.</li>
+      </ul>
+      <p>Join us and ride the waves of the financial market towards a brighter, more secure future.</p>
+    </section>
+    <section class="contact">
+      <form id="emailForm">
+        <label for="email">Enter your email for more information:</label><br>
+        <input type="email" id="email" name="email" placeholder="Your email address" required>
+        <input type="submit" value="Submit">
+      </form>
+      <!-- The submitted email will be displayed here -->
+      <div id="result"></div>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById('emailForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+      
+      // Capture the entered email
+      const email = document.getElementById('email').value;
+      
+      // Display the submitted email on the page
+      document.getElementById('result').innerHTML = "<p>Email submitted: " + email + "</p>";
+
+      // Attempt to send an email using SMTP.js with your secure token
+      Email.send({
+        SecureToken: "e7b2a8d3-e2a4-4e26-a0bb-09c981f34c7f", // Your provided secure token
+        To: email, // Recipient email: the one entered by the user
+        From: "albertcsaszar2010@gmail.com", // Sender email (must be authorized for your token)
+        Subject: "Welcome to Wave Financial Management",
+        Body: `
+          <h2>Welcome to Wave Financial Management</h2>
+          <p>This email is sent from <strong>Wave Financial Management</strong>.</p>
+          <p>Owner: <strong>Csaszar Albert</strong></p>
+          <p>Phone: <strong>+0747565526</strong></p>
+          <p>Please contact the owner directly to discuss investment opportunities and invest your money.</p>
+          <p>Thank you for choosing us.</p>
+        `
+      }).then(
+        message => {
+          console.log("Email send status:", message);
+          alert("An email has been sent to you with more details!");
+        }
+      ).catch(
+        error => {
+          console.error("Error sending email:", error);
+          alert("There was an error sending the email. Please check the console for details.");
+        }
+      );
+    });
+  </script>
+</body>
+</html>
