@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live News</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    #newsList { margin-top: 20px; }
+    .news-item { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    #adminSection { display: none; border: 2px solid #333; padding: 10px; margin-top: 20px; }
+    form { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <h1>Live News</h1>
+  <div id="newsList"></div>
+  <hr>
+  
+  <!-- Login Section -->
+  <div id="loginSection">
+    <h2>Admin Login</h2>
+    <form id="loginForm">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  
+  <!-- Admin Posting Section -->
+  <div id="adminSection">
+    <h2>Post a News Article</h2>
+    <form id="newsForm">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required><br><br>
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" required></textarea><br><br>
+      <button type="submit">Post News</button>
+    </form>
+    <button id="logoutBtn">Logout</button>
+  </div>
+  
+  <script>
+    // Set your desired admin password here
+    const adminPassword = "admin123";
+    
+    // Check admin status using localStorage for demo purposes
+    let isAdmin = localStorage.getItem("isAdmin") === "true";
+    
+    function showAdminSection() {
+      document.getElementById("adminSection").style.display = "block";
+      document.getElementById("loginSection").style.display = "none";
+    }
+    
+    function hideAdminSection() {
+      document.getElementById("adminSection").style.display = "none";
+      document.getElementById("loginSection").style.display = "block";
+    }
+    
+    if(isAdmin) {
+      showAdminSection();
+    }
+    
+    // Handle Login Form
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let pwd = document.getElementById("password").value;
+      if(pwd === adminPassword) {
+        isAdmin = true;
+        localStorage.setItem("isAdmin", "true");
+        showAdminSection();
+      } else {
+        alert("Incorrect password!");
+      }
+      this.reset();
+    });
+    
+    // Handle Logout Button
+    document.getElementById("logoutBtn").addEventListener("click", function() {
+      isAdmin = false;
+      localStorage.setItem("isAdmin", "false");
+      hideAdminSection();
+    });
+    
+    // Handle News Posting Form
+    document.getElementById("newsForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let title = document.getElementById("title").value;
+      let content = document.getElementById("content").value;
+      let newsItem = {
+        title: title,
+        content: content,
+        date: new Date().toLocaleString()
+      };
+      let newsArray = JSON.parse(localStorage.getItem("newsArray")) || [];
+      newsArray.push(newsItem);
+      localStorage.setItem("newsArray", JSON.stringify(newsArray));
+      displayNews();
+      this.reset();
+    });
+    
+    // Display news from localStorage
+    function displayNews() {
+      let newsArray = JSON.parse(localStorage.getItem("newsArray")) || [];
+      let newsListDiv = document.getElementById("newsList");
+      newsListDiv.innerHTML = "";
+      // Reverse order: newest first
+      newsArray.slice().reverse().forEach(function(news) {
+        let div = document.createElement("div");
+        div.className = "news-item";
+        div.innerHTML = "<h3>" + news.title + "</h3>" +
+                        "<small>" + news.date + "</small>" +
+                        "<p>" + news.content + "</p>";
+        newsListDiv.appendChild(div);
+      });
+    }
+    
+    // Load news on page load
+    displayNews();
+  </script>
+</body>
+</html>
