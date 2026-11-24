@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SCAM sau LEGITIM · Equiteam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F5EBE0;
+      --bg-2: #FAF3EB;
+      --card: #FFFFFF;
+      --border: #E2D9CE;
+      --forest: #14452F;
+      --emerald: #1E6B47;
+      --emerald-2: #268558;
+      --coral: #E87A3E;
+      --coral-soft: #FCE6D8;
+      --text: #102A1E;
+      --muted: #4A5D53;
+      --track: #EFE6DA;
+      --ok: #1E6B47;
+      --ok-soft: #E3F1E8;
+      --bad: #C0392B;
+      --bad-soft: #FBE7E4;
+      --shadow: 0 10px 30px rgba(20, 69, 47, 0.08), 0 2px 6px rgba(20, 69, 47, 0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body { margin: 0; padding: 0; }
+    html { background: var(--bg); }
+
+    body {
+      min-height: 100vh;
+      font-family: "Plus Jakarta Sans", "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 500px at 110% -10%, rgba(232, 122, 62, 0.14), transparent 60%),
+        radial-gradient(900px 500px at -20% 0%, rgba(30, 107, 71, 0.12), transparent 60%),
+        linear-gradient(180deg, var(--bg-2), var(--bg));
+
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: max(20px, env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom));
+    }
+
+    /* ---------- Header ---------- */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 4px 4px 18px;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--forest);
+      text-transform: uppercase;
+    }
+    .brand-logo {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--forest);
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 0 0 4px rgba(20, 69, 47, 0.12);
+      flex: none;
+    }
+    .brand .dot { color: var(--coral); margin: 0 2px; }
+    .brand small { font-weight: 700; color: var(--muted); letter-spacing: 0.08em; font-size: 11px; }
+
+    /* ---------- Card ---------- */
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 26px 22px;
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(150deg, var(--forest) 0%, var(--emerald) 60%, var(--emerald-2) 100%);
+      color: #fff;
+      border: none;
+    }
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::before {
+      width: 260px; height: 260px;
+      right: -110px; top: -90px;
+      border: 34px solid rgba(255, 255, 255, 0.08);
+    }
+    .hero::after {
+      width: 170px; height: 170px;
+      right: 30px; bottom: -110px;
+      background: rgba(232, 122, 62, 0.35);
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    .sticker {
+      display: inline-block;
+      transform: rotate(-3deg);
+      background: #fff;
+      color: var(--forest);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 12px;
+      box-shadow: 0 5px 0 var(--coral);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 8vw, 36px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      font-weight: 800;
+      color: var(--forest);
+    }
+    .hl {
+      display: inline-block;
+      padding: 0 8px;
+      border-radius: 10px;
+      line-height: 1.2;
+    }
+    .hl-scam { background: var(--coral); color: #fff; }
+    .hl-leg { background: var(--emerald); color: #fff; }
+
+    .lead { color: var(--muted); font-size: 16px; margin: 0 0 18px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+    .chip {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      color: var(--forest);
+      background: var(--bg-2);
+      white-space: nowrap;
+    }
+    .chip.accent { border-color: var(--coral); color: #B4521E; background: var(--coral-soft); }
+
+    .rules {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--coral);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .rules strong { color: var(--forest); }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin: 0 0 8px;
+    }
+
+    h2 {
+      font-size: 21px;
+      line-height: 1.25;
+      margin: 0 0 14px;
+      font-weight: 800;
+      color: var(--forest);
+      letter-spacing: -0.01em;
+    }
+
+    /* ---------- Confidence scale ---------- */
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .scale button {
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: 800;
+      height: 54px;
+      border-radius: 14px;
+      border: 2px solid var(--border);
+      background: #fff;
+      color: var(--forest);
+      cursor: pointer;
+      transition: transform .12s ease, background .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .scale button:hover { border-color: var(--emerald-2); }
+    .scale button:active { transform: scale(0.96); }
+    .scale button[aria-checked="true"] {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #fff;
+      box-shadow: 0 4px 0 var(--forest);
+    }
+    .scale-legend {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .scale-legend span:last-child { text-align: right; }
+
+    /* ---------- Progress ---------- */
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: var(--track);
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .progress > div {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--forest), var(--emerald-2) 80%, var(--coral));
+      transition: width .35s ease;
+    }
+    .counter {
+      display: inline-block;
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      background: var(--forest);
+      border-radius: 10px;
+      padding: 5px 12px;
+      margin-bottom: 14px;
+    }
+
+    .scenario {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-size: 15.5px;
+      line-height: 1.6;
+      color: var(--text);
+      margin: 0 0 18px;
+    }
+
+    /* ---------- Options ---------- */
+    .options { display: grid; gap: 12px; }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      min-height: 66px;
+      padding: 12px 16px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: transform .12s ease, background .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    .option:hover { border-color: var(--emerald-2); }
+    .option:active { transform: scale(0.985); }
+    .option .letter {
+      flex: none;
+      width: 38px; height: 38px;
+      display: grid; place-items: center;
+      font-family: var(--mono);
+      font-size: 15px;
+      border-radius: 11px;
+      background: var(--bg);
+      color: var(--forest);
+      transition: background .15s ease, color .15s ease;
+    }
+    .option .opt-sub {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .option[aria-checked="true"] {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #fff;
+      box-shadow: 0 5px 0 var(--forest);
+      transform: translateY(-1px);
+    }
+    .option[aria-checked="true"] .letter { background: var(--coral); color: #fff; }
+    .option[aria-checked="true"] .opt-sub { color: rgba(255, 255, 255, 0.85); }
+
+    .hint {
+      margin: 16px 2px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--emerald);
+    }
+
+    /* ---------- Buttons ---------- */
+    .actions { display: flex; gap: 12px; align-items: stretch; flex-wrap: wrap; }
+    .btn {
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      border-radius: 18px;
+      padding: 16px 22px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform .12s ease, opacity .15s ease, background .15s ease;
+    }
+    .btn:active:not(:disabled) { transform: translateY(2px); }
+    .btn-primary {
+      flex: 1 1 200px;
+      background: var(--forest);
+      color: #fff;
+      box-shadow: 0 5px 0 #0B2A1C;
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--emerald); }
+    .btn-primary:disabled {
+      background: #C9D3CC;
+      color: #F4F7F5;
+      box-shadow: 0 5px 0 #B3BFB7;
+      cursor: not-allowed;
+    }
+    .btn-ghost {
+      flex: 0 0 auto;
+      background: #fff;
+      color: var(--forest);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--emerald-2); }
+    .btn-light {
+      background: #fff;
+      color: var(--forest);
+      box-shadow: 0 5px 0 var(--coral);
+    }
+
+    /* ---------- Loading ---------- */
+    .loading { text-align: center; padding: 48px 22px; }
+    .spinner {
+      width: 56px; height: 56px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      border: 6px solid var(--track);
+      border-top-color: var(--emerald);
+      border-right-color: var(--coral);
+      animation: spin .9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading p { font-weight: 700; color: var(--forest); margin: 0; }
+
+    /* ---------- Results ---------- */
+    .hero h2 { color: #fff; font-size: 24px; margin-bottom: 8px; }
+    .hero p { margin: 0; color: rgba(255, 255, 255, 0.9); }
+
+    .score-big {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 18px 0 4px;
+    }
+    .score-big b {
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .score-big span { font-size: 18px; font-weight: 700; opacity: .9; }
+
+    .stack { display: grid; gap: 16px; margin-top: 16px; }
+
+    .compare-row { margin-bottom: 14px; }
+    .compare-row:last-of-type { margin-bottom: 0; }
+    .compare-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .compare-label b { color: var(--forest); font-family: var(--mono); }
+    .bar {
+      height: 14px;
+      border-radius: 999px;
+      background: var(--track);
+      overflow: hidden;
+    }
+    .bar > div {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      transition: width .8s cubic-bezier(.2, .8, .2, 1);
+    }
+    .bar .conf { background: var(--coral); }
+    .bar .real { background: var(--emerald); }
+
+    .verdict {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: var(--coral-soft);
+      border: 1px solid #F3C9AE;
+      color: var(--text);
+      font-size: 15.5px;
+    }
+    .verdict.good { background: var(--ok-soft); border-color: #BFDDCB; }
+    .verdict strong { color: var(--forest); }
+
+    .review { display: grid; gap: 10px; }
+    details.item {
+      border: 1.5px solid var(--border);
+      border-left-width: 6px;
+      border-radius: var(--radius-md);
+      background: #fff;
+      overflow: hidden;
+    }
+    details.item.ok { border-left-color: var(--ok); }
+    details.item.bad { border-left-color: var(--bad); }
+    details.item summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 14px;
+    }
+    details.item summary::-webkit-details-marker { display: none; }
+    .mark {
+      flex: none;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 16px;
+    }
+    .ok .mark { background: var(--ok); }
+    .bad .mark { background: var(--bad); }
+    .item-title { flex: 1; min-width: 0; }
+    .item-title b { display: block; font-size: 15px; color: var(--forest); line-height: 1.3; }
+    .item-title small { display: block; font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+    .chev {
+      flex: none;
+      width: 10px; height: 10px;
+      border-right: 2.5px solid var(--muted);
+      border-bottom: 2.5px solid var(--muted);
+      transform: rotate(45deg);
+      margin-right: 4px;
+      transition: transform .2s ease;
+    }
+    details[open] .chev { transform: rotate(-135deg); }
+    .item-body {
+      padding: 0 14px 16px 58px;
+      font-size: 14.5px;
+      color: var(--text);
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 8px;
+    }
+    .tag.ok { background: var(--ok-soft); color: var(--ok); }
+    .tag.bad { background: var(--bad-soft); color: var(--bad); }
+    .tag.neutral { background: var(--bg); color: var(--forest); }
+
+    .signature {
+      text-align: right;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--forest);
+      margin: 22px 6px 0;
+    }
+    .signature span { color: var(--coral); }
+
+    .error-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--bad-soft);
+      color: var(--bad);
+      font-weight: 600;
+      font-size: 14.5px;
+    }
+
+    .hidden { display: none !important; }
+
+    .fade-in { animation: fade .3s ease both; }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    button:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--coral);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 360px) {
+      .card { padding: 22px 16px; }
+      .scale button { height: 48px; font-size: 16px; }
+      .item-body { padding-left: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="brand">
+      <div class="brand-logo" aria-hidden="true">E</div>
+      <div>EQUITEAM <span class="dot">•</span> <small>PROIECT FĂCUT DE ELEVI</small></div>
+    </header>
+
+    <!-- ================= ECRAN 1: INTRO ================= -->
+    <section id="screen-intro" class="card fade-in">
+      <div class="eyebrow">Ce nu ne învață nimeni despre bani?</div>
+      <h1>Test: <span class="hl hl-scam">SCAM</span> sau <span class="hl hl-leg">LEGITIM</span> – Nivel expert</h1>
+
+      <div class="chips">
+        <span class="chip accent">Dificultate 10/10</span>
+        <span class="chip">6 situații</span>
+        <span class="chip">3 SCAM + 3 LEGITIM</span>
+      </div>
+
+      <div class="rules">
+        Pentru fiecare situație alege <strong>A (SCAM)</strong> sau <strong>B (LEGITIM)</strong>.
+        Nu te baza pe prima impresie. Citește fiecare detaliu și gândește-te ce se întâmplă în realitate.
+      </div>
+
+      <div class="eyebrow">Înainte să începem</div>
+      <h2 id="conf-q">Cât de încrezător(oare) ești în abilitățile tale de a depista o țeapă financiară, pe o scară de la 1 la 10?</h2>
+
+      <div class="scale" id="scale" role="radiogroup" aria-labelledby="conf-q"></div>
+      <div class="scale-legend">
+        <span>1 = Deloc încrezător</span>
+        <span>10 = Expert absolut</span>
+      </div>
+
+      <p class="hint" id="intro-hint">Alege o notă ca să poți începe testul.</p>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="btn-start" disabled>Începe testul →</button>
+      </div>
+    </section>
+
+    <!-- ================= ECRAN 2: ÎNTREBĂRI ================= -->
+    <section id="screen-quiz" class="card hidden">
+      <div class="progress" aria-hidden="true"><div id="progress-fill"></div></div>
+      <div class="counter" id="counter">1 / 6</div>
+      <h2 id="q-title"></h2>
+      <p class="scenario" id="q-text"></p>
+
+      <div class="options" role="radiogroup" aria-labelledby="q-title">
+        <button class="option" data-choice="A" role="radio" aria-checked="false">
+          <span class="letter">A</span>
+          <span>SCAM<span class="opt-sub">E o țeapă</span></span>
+        </button>
+        <button class="option" data-choice="B" role="radio" aria-checked="false">
+          <span class="letter">B</span>
+          <span>LEGITIM<span class="opt-sub">E o situație reală, sigură</span></span>
+        </button>
+      </div>
+
+      <p class="hint">Poți schimba alegerea până apeși pe „Confirmă”.</p>
+
+      <div class="actions">
+        <button class="btn btn-ghost" id="btn-back">Înapoi</button>
+        <button class="btn btn-primary" id="btn-confirm" disabled>Confirmă răspunsul</button>
+      </div>
+    </section>
+
+    <!-- ================= ÎNCĂRCARE ================= -->
+    <section id="screen-loading" class="card loading hidden" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Se salvează și se calculează scorul...</p>
+    </section>
+
+    <!-- ================= EROARE ================= -->
+    <section id="screen-error" class="card hidden" aria-live="assertive">
+      <div class="eyebrow">Ups!</div>
+      <h2>Nu am reușit să salvăm răspunsurile.</h2>
+      <p class="lead">Verifică conexiunea la internet și încearcă din nou. Răspunsurile tale nu s-au pierdut.</p>
+      <div class="error-box" id="error-msg"></div>
+      <div class="actions" style="margin-top:20px">
+        <button class="btn btn-ghost" id="btn-err-back">Înapoi</button>
+        <button class="btn btn-primary" id="btn-retry">Încearcă din nou</button>
+      </div>
+    </section>
+
+    <!-- ================= ECRAN 3: REZULTATE ================= -->
+    <section id="screen-result" class="hidden">
+      <div class="card hero fade-in">
+        <div class="sticker">Mulțumim!</div>
+        <h2>Răspunsurile tale au fost salvate.</h2>
+        <p id="saved-note">Ne ajuți să construim un proiect despre bani făcut de elevi, pentru elevi.</p>
+        <div class="score-big">
+          <b id="score-num">0 / 6</b>
+          <span>corecte</span>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="card">
+          <div class="eyebrow">Încredere vs. realitate</div>
+          <h2>Cât de bine te-ai estimat?</h2>
+
+          <div class="compare-row">
+            <div class="compare-label"><span>Încrederea ta inițială</span><b id="conf-val">0/10</b></div>
+            <div class="bar"><div class="conf" id="bar-conf"></div></div>
+          </div>
+          <div class="compare-row">
+            <div class="compare-label"><span>Scorul tău real</span><b id="real-val">0/6</b></div>
+            <div class="bar"><div class="real" id="bar-real"></div></div>
+          </div>
+
+          <div class="verdict" id="verdict"></div>
+        </div>
+
+        <div class="card">
+          <div class="eyebrow">Rezumat</div>
+          <h2>Fiecare situație, pe scurt</h2>
+          <p class="lead" style="font-size:14.5px;margin-bottom:14px">Apasă pe o situație ca să vezi explicația.</p>
+          <div class="review" id="review"></div>
+        </div>
+      </div>
+
+      <div class="signature"><span>—</span> Equiteam</div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ---------------- Conținut ---------------- */
+      var INTREBARI = [
+        {
+          titlu: "Transferul bancar neașteptat",
+          text: "Primești o notificare în aplicația băncii că ai încasat 1.250 lei de la o persoană necunoscută. La scurt timp, aceasta te contactează pe WhatsApp, îți trimite o captură de ecran cu transferul și îți spune că a greșit IBAN-ul. Îți cere să îi returnezi banii într-un alt cont, deoarece cel inițial ar fi blocat. Banii apar efectiv în soldul tău disponibil.",
+          corect: "A",
+          explicatie: "Este o schemă clasică de tip „money mule” / transfer fraudulos sau revertibil. Dacă trimiți banii în alt cont, rămâi fără banii tăi când tranzacția inițială este anulată de bancă pentru fraudă sau devii complice la spălare de bani. Procedura corectă este să contactezi banca pentru a refuza/returna tranzacția în contul sursă."
+        },
+        {
+          titlu: "Oferta de colaborare și taxa de instruire",
+          text: "Primești o ofertă de colaborare de la o firmă românească. Verifici CUI-ul și constați că firma există. Reprezentantul îți trimite contractul în format PDF, semnat electronic calificat, iar semnătura poate fi verificată. Înainte de începerea activității, firma îți solicită plata unei taxe de 75 lei pentru un curs de instruire obligatoriu. Plata se face într-un cont bancar deschis pe numele firmei, iar taxa și cursul sunt menționate explicit în contract.",
+          corect: "B",
+          explicatie: "Deși cere o taxă (ceea ce la prima vedere pare suspect), toate verificările legale confirmă autenticitatea: CUI-ul este real, contractul are semnătură electronică calificată verificabilă, banii merg în contul oficial al firmei (nu către o persoană fizică), iar condițiile sunt stipulate transparent în contract."
+        },
+        {
+          titlu: "Autentificarea în doi pași",
+          text: "Primești o notificare de autentificare în contul tău Google, deși nu ai încercat să te conectezi. Refuzi solicitarea. După câteva minute, primești un telefon de la cineva care se prezintă drept angajat al departamentului de securitate Google. Persoana îți cunoaște adresa de e-mail și ultimele patru cifre ale numărului tău de telefon. Îți spune că trebuie să îi comunici codul primit prin SMS pentru a opri atacul.",
+          corect: "A",
+          explicatie: "Google nu sună niciodată utilizatorii pentru a cere coduri SMS de securitate. Atacatorul are deja parola ta (sau încearcă resetarea ei) și folosește ingineria socială ca să îți fure codul 2FA și să preia controlul complet asupra contului."
+        },
+        {
+          titlu: "Achiziția unui produs second-hand",
+          text: "Cumperi un laptop de la o persoană de pe OLX. Vânzătorul are cont de câțiva ani, recenzii pozitive și fotografii reale ale produsului. Discutați toate detaliile în chat-ul OLX. Alegi plata prin serviciul oficial de livrare cu verificare disponibil în platformă, iar tranzacția și comanda apar în contul tău OLX. La primire verifici produsul înainte de a confirma acceptarea, conform condițiilor serviciului.",
+          corect: "B",
+          explicatie: "Toate elementele de siguranță sunt respectate: comunicarea rămâne în chat-ul oficial, nu se accesează link-uri externe de phishing, iar plata și livrarea cu verificare se fac strict prin sistemul integrat al platformei."
+        },
+        {
+          titlu: "Investiția printr-o platformă cunoscută",
+          text: "Un prieten îți recomandă o platformă de investiții care folosește sigla unei companii internaționale cunoscute. Găsești online articole despre compania respectivă și verifici că aceasta este autorizată într-o jurisdicție europeană. Prietenul îți trimite însă un link către o pagină de înregistrare cu un domeniu ușor diferit de cel oficial. Platforma îți afișează un sold de 300 euro bonus imediat după înregistrare și îți cere o depunere de 100 euro pentru activarea retragerilor.",
+          corect: "A",
+          explicatie: "Este o clonă (typosquatting / impersonare). Escrocii folosesc numele și autorizația unei companii reale, dar te trimit pe un domeniu fals. Bonusurile „gratuite” urmate de cererea unei depuneri pentru „deblocarea retragerilor” sunt semnătura clasică a platformelor false de investiții."
+        },
+        {
+          titlu: "Rambursarea unei plăți",
+          text: "Comanzi un produs de pe site-ul unui magazin românesc cunoscut. Produsul ajunge deteriorat și soliciți rambursarea. Magazinul îți confirmă în scris că a aprobat returul. Primești apoi banii înapoi pe același card cu care ai efectuat plata inițială. Nu ai furnizat datele cardului prin telefon sau e-mail și nici nu ai accesat vreun link primit separat.",
+          corect: "B",
+          explicatie: "Refund-ul (stornarea) către același card folosit la achiziția inițială este fluxul bancar standard în e-commerce și nu necesită introducerea datelor cardului pe vreun link extern."
+        }
+      ];
+
+      var ETICHETE = { A: "SCAM", B: "LEGITIM" };
+      var TOTAL = INTREBARI.length;
+
+      /* ---------------- Stare ---------------- */
+      var stare = {
+        incredere: null,
+        index: 0,
+        raspunsuri: new Array(TOTAL).fill(null), // confirmate
+        selectie: null,                            // alegerea curentă, neconfirmată
+        trimitere: false
+      };
+
+      /* ---------------- Utilitare DOM ---------------- */
+      function $(id) { return document.getElementById(id); }
+
+      var ecrane = ["screen-intro", "screen-quiz", "screen-loading", "screen-error", "screen-result"];
+      function arata(id) {
+        ecrane.forEach(function (e) {
+          var el = $(e);
+          if (e === id) {
+            el.classList.remove("hidden");
+            el.classList.remove("fade-in");
+            void el.offsetWidth; // repornește animația
+            el.classList.add("fade-in");
+          } else {
+            el.classList.add("hidden");
+          }
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text != null) n.textContent = text;
+        return n;
+      }
+
+      /* ---------------- Ecran 1: încredere ---------------- */
+      var scale = $("scale");
+      for (var i = 1; i <= 10; i++) {
+        var b = el("button", null, String(i));
+        b.type = "button";
+        b.setAttribute("role", "radio");
+        b.setAttribute("aria-checked", "false");
+        b.setAttribute("aria-label", "Încredere " + i + " din 10");
+        b.dataset.value = String(i);
+        scale.appendChild(b);
+      }
+
+      scale.addEventListener("click", function (ev) {
+        var btn = ev.target.closest("button");
+        if (!btn) return;
+        stare.incredere = Number(btn.dataset.value);
+        Array.prototype.forEach.call(scale.children, function (c) {
+          c.setAttribute("aria-checked", c === btn ? "true" : "false");
+        });
+        $("btn-start").disabled = false;
+        $("intro-hint").textContent = "Ai ales " + stare.incredere + "/10. Poți schimba nota oricând înainte de start.";
+      });
+
+      $("btn-start").addEventListener("click", function () {
+        if (!stare.incredere) return;
+        stare.index = 0;
+        randeazaIntrebarea();
+        arata("screen-quiz");
+      });
+
+      /* ---------------- Ecran 2: întrebări ---------------- */
+      var optiuni = document.querySelectorAll(".option");
+
+      function randeazaIntrebarea() {
+        var q = INTREBARI[stare.index];
+        $("counter").textContent = (stare.index + 1) + " / " + TOTAL;
+        $("q-title").textContent = q.titlu;
+        $("q-text").textContent = q.text;
+        $("progress-fill").style.width = ((stare.index) / TOTAL * 100) + "%";
+
+        stare.selectie = stare.raspunsuri[stare.index];
+        actualizeazaOptiuni();
+        $("btn-confirm").textContent = stare.index === TOTAL - 1 ? "Confirmă și vezi scorul" : "Confirmă răspunsul";
+      }
+
+      function actualizeazaOptiuni() {
+        Array.prototype.forEach.call(optiuni, function (o) {
+          o.setAttribute("aria-checked", o.dataset.choice === stare.selectie ? "true" : "false");
+        });
+        $("btn-confirm").disabled = !stare.selectie || stare.trimitere;
+      }
+
+      Array.prototype.forEach.call(optiuni, function (o) {
+        o.addEventListener("click", function () {
+          if (stare.trimitere) return;
+          stare.selectie = o.dataset.choice;
+          actualizeazaOptiuni();
+        });
+      });
+
+      $("btn-back").addEventListener("click", function () {
+        if (stare.trimitere) return;
+        if (stare.index === 0) {
+          arata("screen-intro");
+          return;
+        }
+        stare.index -= 1;
+        randeazaIntrebarea();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      $("btn-confirm").addEventListener("click", confirma);
+
+      function confirma() {
+        if (!stare.selectie || stare.trimitere) return;
+        stare.raspunsuri[stare.index] = stare.selectie;
+
+        if (stare.index < TOTAL - 1) {
+          stare.index += 1;
+          randeazaIntrebarea();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          $("progress-fill").style.width = "100%";
+          trimite();
+        }
+      }
+
+      // Scurtături de tastatură: A / B / 1 / 2 pentru alegere, Enter pentru confirmare.
+      document.addEventListener("keydown", function (ev) {
+        if ($("screen-quiz").classList.contains("hidden") || stare.trimitere) return;
+        var k = ev.key.toLowerCase();
+        if (k === "a" || k === "1") { stare.selectie = "A"; actualizeazaOptiuni(); }
+        else if (k === "b" || k === "2") { stare.selectie = "B"; actualizeazaOptiuni(); }
+        else if (k === "enter" && stare.selectie && ev.target.tagName !== "BUTTON") { confirma(); }
+      });
+
+      /* ---------------- Trimitere ---------------- */
+      function calculeazaScor() {
+        var s = 0;
+        for (var i = 0; i < TOTAL; i++) {
+          if (stare.raspunsuri[i] === INTREBARI[i].corect) s++;
+        }
+        return s;
+      }
+
+      function trimite() {
+        stare.trimitere = true;
+        arata("screen-loading");
+
+        var payload = {
+          timestamp: new Date().toISOString(),
+          incredereInitiala: stare.incredere,
+          raspunsuri: stare.raspunsuri.slice(),
+          scorTotal: calculeazaScor()
+        };
+
+        var minim = new Promise(function (r) { setTimeout(r, 900); });
+
+        var salvare = new Promise(function (resolve, reject) {
+          if (typeof google === "undefined" || !google.script || !google.script.run) {
+            // Previzualizare locală (în afara Apps Script): simulăm salvarea.
+            setTimeout(function () { resolve({ ok: true, scorTotal: payload.scorTotal, preview: true }); }, 600);
+            return;
+          }
+          google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(reject)
+            .salveazaRaspuns(payload);
+        });
+
+        Promise.all([salvare, minim]).then(function (rez) {
+          stare.trimitere = false;
+          var r = rez[0] || {};
+          var scor = typeof r.scorTotal === "number" ? r.scorTotal : payload.scorTotal;
+          afiseazaRezultate(scor, !!r.preview);
+        }).catch(function (err) {
+          stare.trimitere = false;
+          $("error-msg").textContent = (err && err.message) ? err.message : String(err || "Eroare necunoscută.");
+          arata("screen-error");
+        });
+      }
+
+      $("btn-retry").addEventListener("click", trimite);
+      $("btn-err-back").addEventListener("click", function () {
+        stare.index = TOTAL - 1;
+        randeazaIntrebarea();
+        arata("screen-quiz");
+      });
+
+      /* ---------------- Ecran 3: rezultate ---------------- */
+      function mesajVerdict(inc, scor) {
+        var baza = "Ai estimat o încredere de " + inc + "/10 și ai obținut " + scor + "/6. ";
+        if (scor === 6) {
+          return { bun: true, text: inc <= 5
+            ? baza + "Te-ai subestimat: ai identificat corect toate situațiile! Felicitări — ai ochi de expert, chiar dacă nu credeai asta."
+            : baza + "Felicitări, scor perfect! Încrederea ta este justificată. Ajută-ți și colegii să deosebească o țeapă de o ofertă reală." };
+        }
+        if (scor === 5) {
+          return { bun: true, text: inc <= 5
+            ? baza + "Foarte bine — te-ai descurcat mult peste cât te așteptai. Un singur detaliu ți-a scăpat; citește explicația de mai jos."
+            : baza + "Foarte bine! Ești greu de păcălit, dar un singur detaliu ți-a scăpat — și exact pe asta mizează escrocii." };
+        }
+        if (inc >= 7) {
+          return { bun: false, text: "Ai estimat o încredere de " + inc + "/10, dar ai obținut " + scor + "/6. Exact de aceea facem acest proiect: escrocii mizează pe faptul că ne credem greu de păcălit." };
+        }
+        if (inc >= 4) {
+          return { bun: false, text: baza + "Încrederea ta a fost moderată, dar realitatea a fost și mai dură. Escrocii folosesc detalii care par legitime, iar ofertele legitime pot părea suspecte. Uită-te la explicații — fiecare conține un semnal pe care îl poți folosi data viitoare." };
+        }
+        return { bun: false, text: baza + "Ai fost prudent(ă) — și asta e un punct bun de plecare. Acum ai câteva semnale concrete pe care să le verifici data viitoare; citește explicațiile de mai jos." };
+      }
+
+      function afiseazaRezultate(scor, preview) {
+        $("score-num").textContent = scor + " / " + TOTAL;
+        $("conf-val").textContent = stare.incredere + "/10";
+        $("real-val").textContent = scor + "/" + TOTAL;
+        if (preview) {
+          $("saved-note").textContent = "Mod previzualizare: aplicația nu rulează în Google Apps Script, deci nimic nu a fost trimis.";
+        }
+
+        var v = mesajVerdict(stare.incredere, scor);
+        var verdict = $("verdict");
+        verdict.textContent = v.text;
+        verdict.classList.toggle("good", v.bun);
+
+        var review = $("review");
+        review.innerHTML = "";
+        INTREBARI.forEach(function (q, i) {
+          var ales = stare.raspunsuri[i];
+          var ok = ales === q.corect;
+
+          var d = el("details", "item " + (ok ? "ok" : "bad"));
+          var s = el("summary");
+          s.appendChild(el("span", "mark", ok ? "✓" : "✗"));
+          var t = el("span", "item-title");
+          t.appendChild(el("b", null, (i + 1) + ". " + q.titlu));
+          t.appendChild(el("small", null, ok
+            ? "Corect · " + ETICHETE[q.corect]
+            : "Greșit · era " + ETICHETE[q.corect]));
+          s.appendChild(t);
+          s.appendChild(el("span", "chev"));
+          d.appendChild(s);
+
+          var body = el("div", "item-body");
+          var tags = el("div", "tags");
+          tags.appendChild(el("span", "tag " + (ok ? "ok" : "bad"), "Ai ales: " + ales + ". " + ETICHETE[ales]));
+          tags.appendChild(el("span", "tag neutral", "Corect: " + q.corect + ". " + ETICHETE[q.corect]));
+          body.appendChild(tags);
+          body.appendChild(el("div", null, q.explicatie));
+          d.appendChild(body);
+
+          review.appendChild(d);
+        });
+
+        arata("screen-result");
+
+        // Animăm barele după ce ecranul este vizibil.
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            $("bar-conf").style.width = (stare.incredere / 10 * 100) + "%";
+            $("bar-real").style.width = (scor / TOTAL * 100) + "%";
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
